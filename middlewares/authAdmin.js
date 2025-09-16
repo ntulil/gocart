@@ -1,4 +1,4 @@
-import { clerkClient } from ("@clerk/nextjs/server")
+import { clerkClient } from "@clerk/nextjs/server"
 
 const authAdmin = async (userId) => {
     try {
@@ -9,7 +9,6 @@ const authAdmin = async (userId) => {
 
         return process.env.ADMIN_EMAIL.split(',').includes(user.
             emailAddresses[0].emailAddress)
-
 
     } catch (error) {
         console.error(error)
