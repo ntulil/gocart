@@ -6,7 +6,6 @@ import { deleteCouponOnExpiry, syncUserCreation, syncUserDeletion, syncUserUpdat
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [
-    /* your functions will be passed here later! */
     syncUserCreation,
     syncUserUpdate,
     syncUserDeletion,

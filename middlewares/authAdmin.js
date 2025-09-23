@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/nextjs/server"
+/* import { clerkClient } from "@clerk/nextjs/server"
 
 const authAdmin = async (userId) => {
     try {
@@ -18,7 +18,9 @@ const authAdmin = async (userId) => {
     }
 }
 
-export default authAdmin; 
+export default authAdmin;  */
+
+
 
 // // all code below is DS AI gen
 // import { clerkClient } from "@clerk/nextjs/server"
@@ -50,3 +52,46 @@ export default authAdmin;
 
 // export default authAdmin
 
+/* import { clerkClient } from "@clerk/nextjs/server";
+
+const authAdmin = async (userId) => {
+  try {
+    if (!userId) return false;
+
+    // ✅ clerkClient is already ready to use – no need to call it
+    const user = await clerkClient.users.getUser(userId);
+
+    const adminEmails = (process.env.ADMIN_EMAIL || "").split(",");
+    return adminEmails.includes(user.emailAddresses[0].emailAddress);
+  } catch (error) {
+    console.error("authAdmin error:", error);
+    return false;
+  }
+};
+
+export default authAdmin;
+ */
+
+import { clerkClient } from "@clerk/nextjs/server";
+
+const authAdmin = async (userId) => {
+  try {
+    if (!clerkClient) {
+      console.error("❌ clerkClient is undefined – check Clerk configuration and CLERK_SECRET_KEY.");
+      return false;
+    }
+
+    if (!userId) return false;
+
+    const user = await clerkClient.users.getUser(userId);
+    if (!user?.emailAddresses?.length) return false;
+
+    const adminEmails = (process.env.ADMIN_EMAIL || "").split(",");
+    return adminEmails.includes(user.emailAddresses[0].emailAddress);
+  } catch (error) {
+    console.error("authAdmin error:", error);
+    return false;
+  }
+};
+
+export default authAdmin;

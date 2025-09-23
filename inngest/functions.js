@@ -15,9 +15,9 @@ export const syncUserCreation = inngest.createFunction(
             name: `${data.first_name} ${data.last_name}`,
             image: data.image_url
         }
-    })
+    });
   }
-)
+);
 // Implement an inngest function to update user data in a database
 export const syncUserUpdate = inngest.createFunction(
   { id: "sync-user-update" },
@@ -25,16 +25,15 @@ export const syncUserUpdate = inngest.createFunction(
   async ({ event }) => {
     const {data} = event;
     await prisma.user.update({
-        where: {id: data.id,},
+        where: {id: data.id },
         data: {
             email: data.email_addresses[0].email_address,
             name: `${data.first_name} ${data.last_name}`,
             image: data.image_url
-
             }
-        })
+        });
     }
-)
+);
 // Implement an inngest function to delete user data from a database
 export const syncUserDeletion = inngest.createFunction(
   { id: "sync-user-deletion" },
@@ -42,10 +41,10 @@ export const syncUserDeletion = inngest.createFunction(
   async ({ event }) => {
     const {data} = event;
     await prisma.user.delete({
-        where: {id: data.id,}
-        })
+        where: { id: data.id }
+        });
     }
-)
+);
 
 //  Inngest Function to delete coupon on expiry
 export const deleteCouponOnExpiry = inngest.createFunction(
@@ -63,3 +62,6 @@ export const deleteCouponOnExpiry = inngest.createFunction(
     })
   }
 )
+// Add this to see what functions are registered
+console.log('Registered Inngest functions:');
+console.log(inngest.functionIds); // This should list all your functions
