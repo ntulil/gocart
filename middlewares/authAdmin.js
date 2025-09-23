@@ -1,4 +1,4 @@
-/* import { clerkClient } from "@clerk/nextjs/server"
+import { clerkClient } from "@clerk/nextjs/server"
 
 const authAdmin = async (userId) => {
     try {
@@ -10,8 +10,7 @@ const authAdmin = async (userId) => {
         const user = await clerkClient.users.getUser(userId);
 
 
-        return process.env.ADMIN_EMAIL.split(',').includes(user.
-            emailAddresses[0].emailAddress)
+        return process.env.ADMIN_EMAIL.split(',').includes(user.emailAddresses[0].emailAddress)
 
     } catch (error) {
         console.error(error)
@@ -19,35 +18,35 @@ const authAdmin = async (userId) => {
     }
 }
 
-export default authAdmin; */
+export default authAdmin; 
 
-// all code below is DS AI gen
-import { clerkClient } from "@clerk/nextjs/server"
+// // all code below is DS AI gen
+// import { clerkClient } from "@clerk/nextjs/server"
 
-const authAdmin = async (userId) => {
-    try {
-        if (!userId) return false
+// const authAdmin = async (userId) => {
+//     try {
+//         if (!userId) return false
 
-        // Correct usage - clerkClient is already initialized
-        const user = await clerkClient.users.getUser(userId)
+//         // Correct usage - clerkClient is already initialized
+//         const user = await clerkClient.users.getUser(userId)
         
-        // Check if user has email addresses
-        if (!user.emailAddresses || user.emailAddresses.length === 0) {
-            return false
-        }
+//         // Check if user has email addresses
+//         if (!user.emailAddresses || user.emailAddresses.length === 0) {
+//             return false
+//         }
         
-        // Get the primary email address
-        const primaryEmail = user.emailAddresses[0].emailAddress
+//         // Get the primary email address
+//         const primaryEmail = user.emailAddresses[0].emailAddress
         
-        // Check if the email is in the admin list
-        const adminEmails = process.env.ADMIN_EMAIL ? process.env.ADMIN_EMAIL.split(',') : []
-        return adminEmails.includes(primaryEmail)
+//         // Check if the email is in the admin list
+//         const adminEmails = process.env.ADMIN_EMAIL ? process.env.ADMIN_EMAIL.split(',') : []
+//         return adminEmails.includes(primaryEmail)
 
-    } catch (error) {
-        console.error("Admin auth error:", error)
-        return false
-    }
-}
+//     } catch (error) {
+//         console.error("Admin auth error:", error)
+//         return false
+//     }
+// }
 
-export default authAdmin
+// export default authAdmin
 
