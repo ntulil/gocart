@@ -1,5 +1,5 @@
 import { Inngest } from "inngest";
-import "@/lib/inngest/functions"; //DS AI gen
+
 
 
 // Create a client to send and receive events
