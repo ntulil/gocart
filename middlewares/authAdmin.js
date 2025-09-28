@@ -1,4 +1,4 @@
-/* import { clerkClient } from "@clerk/nextjs/server"
+import { clerkClient } from "@clerk/nextjs/server"
 
 const authAdmin = async (userId) => {
     try {
@@ -7,7 +7,7 @@ const authAdmin = async (userId) => {
         const client = await clerkClient()
         // const user = await client.users.getUser(userId) --- IGNORE --- AI
         
-        const user = await clerkClient.users.getUser(userId);
+        const user = await client.users.getUser(userId);
 
 
         return process.env.ADMIN_EMAIL.split(',').includes(user.emailAddresses[0].emailAddress)
@@ -18,7 +18,7 @@ const authAdmin = async (userId) => {
     }
 }
 
-export default authAdmin;  */
+export default authAdmin; 
 
 
 
@@ -72,12 +72,12 @@ const authAdmin = async (userId) => {
 export default authAdmin;
  */
 
-import { clerkClient } from "@clerk/nextjs/server";
+/* import { clerkClient } from "@clerk/nextjs/server";
 
 const authAdmin = async (userId) => {
   try {
     if (!clerkClient) {
-      console.error("❌ clerkClient is undefined – check Clerk configuration and CLERK_SECRET_KEY.");
+      console.error("❌ clerkClient is undefined - check Clerk configuration and CLERK_SECRET_KEY.");
       return false;
     }
 
@@ -87,6 +87,8 @@ const authAdmin = async (userId) => {
     if (!user?.emailAddresses?.length) return false;
 
     const adminEmails = (process.env.ADMIN_EMAIL || "").split(",");
+    console.log("✅ ADMIN_EMAIL loaded from env:", adminEmails);
+
     return adminEmails.includes(user.emailAddresses[0].emailAddress);
   } catch (error) {
     console.error("authAdmin error:", error);
@@ -94,4 +96,4 @@ const authAdmin = async (userId) => {
   }
 };
 
-export default authAdmin;
+export default authAdmin; */

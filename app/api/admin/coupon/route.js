@@ -2,8 +2,6 @@ import { getAuth } from "@clerk/nextjs/server";
 import authAdmin from "@/middlewares/authAdmin"
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { inngest } from "@/lib/inngest"; // ✅ Add this
-// import { inngest } from "./client";
 
 
 // Add new coupon

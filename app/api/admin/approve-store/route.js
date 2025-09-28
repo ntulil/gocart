@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 // Approve seller
 export async function POST(req){
     try {
-        const { userId } =await getAuth(req)
+        const { userId } = getAuth(req)
         const isAdmin = await authAdmin(userId)
 
         if (!isAdmin) {
@@ -28,7 +28,7 @@ export async function POST(req){
             })
         }
 
-        return NextResponse.json({ message: status + " Successfully"})
+        return NextResponse.json({ message: status + " successfully"})
 
     } catch (error) {
         console.error(error)

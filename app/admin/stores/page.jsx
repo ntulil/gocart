@@ -1,14 +1,14 @@
 'use client'
-import { storesDummyData } from "@/assets/assets"
 import StoreInfo from "@/components/admin/StoreInfo"
 import Loading from "@/components/Loading"
 import { useAuth, useUser } from "@clerk/nextjs"
+import axios from "axios"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 export default function AdminStores() {
     const { user } = useUser()
-    const { getToken } = useAuth
+    const { getToken } = useAuth()
 
     const [stores, setStores] = useState([])
     const [loading, setLoading] = useState(true)

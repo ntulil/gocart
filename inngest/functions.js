@@ -1,5 +1,5 @@
-import { inngest } from "./client";
 import prisma from "@/lib/prisma";
+import { inngest } from "./client";
 
 // Create an inngest function to save user data to a database
 export const syncUserCreation = inngest.createFunction(
@@ -49,7 +49,7 @@ export const syncUserDeletion = inngest.createFunction(
 //  Inngest Function to delete coupon on expiry
 export const deleteCouponOnExpiry = inngest.createFunction(
   { id: 'delete-coupon-on-expiry' },
-  { event: 'app/coupon.expired'},
+  { event: 'app/coupon.expired' },
   async ({ event, step }) => {
     const { data } = event
     const expiryDate = new Date(data.expires_at)
