@@ -25,5 +25,4 @@ export async function GET(req) {
         return NextResponse.json({error: error.code || error.message }, { status: 400})
         
     }
-    
 }

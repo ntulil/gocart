@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import { PaymentMethod } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(req) {
     try {
@@ -84,13 +85,43 @@ export async function POST(req) {
                     quantity: item.quantity, 
                     price: item.price
                     }))
-                }
+                    }
                 }
             })
             orderIds.push(order.id)
-        }
+            }
+        // Process payment if method is Stripe
+        if (paymentMethod === PaymentMethod.STRIPE){
+            const stripe = new Stripe(process.env.STRIPE_SECRET_KEY) 
+            const origin = await req.headers.get("origin") || "http://localhost:3000"
+
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: [{
+                    price_data:{
+                        currency: 'usd',
+                        product_data:{
+                            name: 'Order'
+                        },
+                        unit_amount: Math.round(fullAmount * 100)
+                    },
+                    quantity: 1
+                }],
+                expires_at: Math.floor(DataTransfer.now() / 1000) + 30 * 60, // current time + 30 minutes
+                mode: 'payment',
+                success_url: `${origin}/loading?nextUrl=orders`,
+                cancel_url: `${origin}/cart`,
+                metadata: {
+                    orderIds: orderIds.join(','),
+                    userId,
+                    appId: 'gocart'
+                }
+            })
+            return NextRequest.json({session})
+            }
+            
         // Clear user's cart
-        await prisma.cartItem.update({ 
+        await prisma.user.update({ // deleted prisma.cartItem and inserted user
             where: { id: userId },
             data: { cart: {} }
         })

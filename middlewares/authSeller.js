@@ -11,13 +11,10 @@ const authSeller = async ( userId ) => {
                 },
             });
     
-            if ( user && user.store) {
+            if ( user.store ) {
                 if (user.store.status === 'approved') {
                     return user.store.id;
                 } 
-                // else {
-                //     return false;
-                // }
             } else {
                 return false;
             }
