@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const AdminNavbar = () => {
 
-    const { user } = useUser
+    const { user } = useUser()
 
 
     return (
@@ -16,7 +16,7 @@ const AdminNavbar = () => {
                 </p>
             </Link>
             <div className="flex items-center gap-3">
-                <p>Hi, {user?.firstName}</p>
+                <p>Hi, { user?.firstName || user?.username || 'Admin' }</p>
                 <UserButton />
             </div>
         </div>
