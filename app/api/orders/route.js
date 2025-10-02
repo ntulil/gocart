@@ -14,7 +14,7 @@ export async function POST(req) {
 
         // Check if all the required fields are present
         if (!addressId || !paymentMethod || !items || !Array.isArray(items) || items.length === 0){
-            return NextRequest.json({ error: "Missing order details"}, { status: 400})
+            return NextResponse.json({ error: "Missing order details"}, { status: 400})
         }
 
         let coupon = null;
@@ -107,7 +107,7 @@ export async function POST(req) {
                     },
                     quantity: 1
                 }],
-                expires_at: Math.floor(DataTransfer.now() / 1000) + 30 * 60, // current time + 30 minutes
+                expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // current time + 30 minutes
                 mode: 'payment',
                 success_url: `${origin}/loading?nextUrl=orders`,
                 cancel_url: `${origin}/cart`,
@@ -117,11 +117,11 @@ export async function POST(req) {
                     appId: 'gocart'
                 }
             })
-            return NextRequest.json({session})
+            return NextResponse.json({session})
             }
             
         // Clear user's cart
-        await prisma.user.update({ // deleted prisma.cartItem and inserted user
+        await prisma.user.update({          // deleted prisma.cartItem and inserted user
             where: { id: userId },
             data: { cart: {} }
         })

@@ -36,7 +36,9 @@ export default function Dashboard() {
             const token = await getToken()
             const { data } = await axios.get('/api/store/dashboard', {headers: {
                 Authorization: `Bearer ${token}` }})
-                setDashboardData(data.dashboardCardsData)
+                // setDashboardData(data.dashboardCardsData)
+                setDashboardData(data.dashboardData) // corrected line AI
+
 
 
         } catch (error) {
