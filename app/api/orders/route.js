@@ -126,7 +126,7 @@ export async function POST(req) {
             data: { cart: {} }
         })
 
-        return NextResponse.json({ message: "Order placed successfully", orderIds, fullAmount })
+        return NextResponse.json({ message: "Order placed successfully" })
         // return NextResponse.json({ message: "Order placed successfully", orderIds })        
           
     } catch (error) {
@@ -159,6 +159,7 @@ export async function GET(req) {
             orderBy: { createdAt: 'desc' }
         });
         return NextResponse.json({ orders }); 
+        
     } catch (error) {
         console.error(error)
         return NextResponse.json({ error: error.message }, { status: 400 })
